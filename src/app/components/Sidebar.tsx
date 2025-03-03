@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Building, Music, Layers } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface SidebarProps {
   darkMode?: boolean;
@@ -30,13 +32,13 @@ export default function Sidebar({ darkMode = true, currentlyPlaying, loading }: 
           <Music className="h-4 w-4 mr-1 flex-shrink-0" />
           <span>
             {loading ? (
-              'listening to'
+              'Loading...'
             ) : currentlyPlaying?.isPlaying ? (
               <span>
-                listening to <a href={currentlyPlaying.songUrl} className="text-blue-400 underline">{currentlyPlaying.title}</a> by {currentlyPlaying.artist}
+                Listening to <a href={currentlyPlaying.songUrl} className="text-blue-400 underline">{currentlyPlaying.title}</a> by {currentlyPlaying.artist}
               </span>
             ) : (
-              'listening to'
+              'Not playing anything'
             )}
           </span>
         </div>

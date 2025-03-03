@@ -8,8 +8,8 @@ import Sidebar from '../components/Sidebar';
 const ExperiencePage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [darkMode, setDarkMode] = useState<boolean>(true);
-  const [currentlyPlaying, setCurrentlyPlaying] = useState<{ isPlaying: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [currentlyPlaying] = useState<{ isPlaying: boolean; title?: string; artist?: string; songUrl?: string } | null>(null);
+  const [loading] = useState<boolean>(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
