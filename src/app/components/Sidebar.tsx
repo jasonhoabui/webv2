@@ -10,35 +10,39 @@ interface SidebarProps {
 export default function Sidebar({ darkMode = true, currentlyPlaying, loading }: SidebarProps) {
   return (
     <div
-      className={`w-full md:w-64 p-4 md:p-6 flex flex-col ${
+      className={`w-48 p-4 flex flex-col ${
         darkMode ? "bg-[rgb(26,26,26)] text-white" : "bg-white text-black"
-      } h-auto md:h-screen transition-colors duration-300`}
+      } h-screen transition-colors duration-300`}
     >
+      {/* Profile Image */}
       <div className="mb-6">
         <Image
           src="/images/profile.jpg"
           alt="Profile"
-          width={80}
-          height={80}
-          className="rounded-md mb-4 mx-auto md:mx-0"
+          width={64}
+          height={64}
+          className="rounded-md mb-4 mx-auto"
         />
       </div>
 
+      {/* Location */}
       <div className="flex items-center text-sm mb-2">
         <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
         <span>garden grove, ca</span>
       </div>
 
+      {/* Employment Status */}
       <div className="flex items-center text-sm mb-2">
         <Building className="h-4 w-4 mr-1 flex-shrink-0" />
         <span>unemployed</span>
       </div>
 
+      {/* Currently Playing */}
       <div className="flex items-center text-sm mb-2">
         <Music className="h-4 w-4 mr-1 flex-shrink-0" />
         <span>
           {loading ? (
-            "listening to"
+            "Loading..."
           ) : currentlyPlaying?.isPlaying ? (
             <span>
               Listening to{" "}
@@ -48,11 +52,12 @@ export default function Sidebar({ darkMode = true, currentlyPlaying, loading }: 
               by {currentlyPlaying.artist}
             </span>
           ) : (
-            "listening to"
+            "Not playing anything"
           )}
         </span>
       </div>
 
+      {/* Skills */}
       <div className="flex items-center text-sm">
         <Layers className="h-4 w-4 mr-1 flex-shrink-0" />
         <span>python, typescript, postgres</span>
