@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, Building, Music, Layers, Sun, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Sidebar from './components/Sidebar';
 
@@ -62,19 +61,19 @@ export default function Home() {
 
         <div className="flex-1">
           <h1 className="text-3xl mb-6 mt-8">
-            hey, i'm <span className="text-blue-400 font-semibold">jason bui</span>!
+            hey, i&apos;m <span className="text-blue-400 font-semibold">jason bui</span>!
           </h1>
           
           <p className="mb-4 text-xl break-words max-w-[700px]">
-            i'm currently a junior at <a href="https://www.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">ucsb</a>, majoring in <a href="https://www.pstat.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">statistics</a>.
+            i&apos;m currently a junior at <a href="https://www.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">ucsb</a>, majoring in <a href="https://www.pstat.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">statistics</a>.
           </p>
           
           <p className="mb-4 text-xl break-words max-w-[700px]">
-            i'm super interested in <span className="text-blue-400">machine learning</span>, <span className="text-blue-400">applied probability</span>, and <span className="text-blue-400">game theory</span>.
+            i&apos;m super interested in <span className="text-blue-400">machine learning</span>, <span className="text-blue-400">applied probability</span>, and <span className="text-blue-400">game theory</span>.
           </p>
           
           <p className="mb-4 text-xl break-words max-w-[700px]">
-            most recently, i've been diving into <span className="text-blue-400">poker theory</span>. i love to read about poker strategy and <a href="https://blogs.cornell.edu/info2040/2021/11/03/game-theory-optimal-gto-texas-holdem-poker-theory/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">gto</a>. my favorite hand is qq.
+            most recently, i&apos;ve been diving into <span className="text-blue-400">poker theory</span>. i love to read about poker strategy and <a href="https://blogs.cornell.edu/info2040/2021/11/03/game-theory-optimal-gto-texas-holdem-poker-theory/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">gto</a>. my favorite hand is qq.
           </p>
           
           <p className="mb-4 text-xl break-words max-w-[700px]">

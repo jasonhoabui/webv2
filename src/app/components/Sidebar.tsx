@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Building, Music, Layers } from "lucide-react";
 
