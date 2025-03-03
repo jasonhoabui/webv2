@@ -56,7 +56,7 @@ const ExperiencePage = () => {
         className="absolute top-0 left-0 w-full h-screen -z-10"
       />
       
-      <div className="flex flex-row w-full min-h-screen">
+      <div className="flex flex-row w-full min-h-screen flex-container">
         <Sidebar darkMode={darkMode} currentlyPlaying={currentlyPlaying} loading={loading} />
 
         <div className="flex-1 flex flex-col p-8 overflow-hidden">
