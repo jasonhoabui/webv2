@@ -49,7 +49,6 @@ export default function Home() {
       <Sidebar darkMode={darkMode} currentlyPlaying={currentlyPlaying} loading={loading} />
 
       <div className="flex-1 flex flex-col p-4 md:p-8 overflow-hidden">
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 max-w-[700px]">
           <Link href="https://jasonhoabui.vercel.app" className="text-2xl font-light text-blue-400 hover:underline mb-4 md:mb-0">
             jasonhoabui
@@ -67,7 +66,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Main Content Section */}
         <div className="flex-1">
           <h1 className="text-3xl mb-6 mt-8">
             hey, i&apos;m <span className="text-blue-400 font-semibold">jason bui</span>!
@@ -114,7 +112,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Footer Links */}
         <div className="flex gap-3 mt-4 ml-93 pr-6">
           <a href="https://github.com/jasonhoabui" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400">
             github
