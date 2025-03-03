@@ -1,7 +1,5 @@
-import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Building, Music, Layers } from "lucide-react";
-import { useEffect, useState } from "react";
 
 interface SidebarProps {
   darkMode?: boolean;
