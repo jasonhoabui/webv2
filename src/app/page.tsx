@@ -1,101 +1,103 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { MapPin, Building, Music, Layers, Sun, Moon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import Sidebar from './components/Sidebar';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [darkMode, setDarkMode] = useState(true);
+  const { data: session } = useSession();
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    const fetchCurrentlyPlaying = async () => {
+      if (!session) return;
+
+      try {
+        const response = await fetch('/api/spotify/now-playing');
+        const data = await response.json();
+        setCurrentlyPlaying(data);
+      } catch (error) {
+        console.error('Error fetching currently playing track:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCurrentlyPlaying();
+
+    const interval = setInterval(fetchCurrentlyPlaying, 30000);
+    return () => clearInterval(interval);
+  }, [session]);
+
+  return (
+    <div className={`h-screen flex transition-colors duration-300 ${darkMode ? 'bg-[rgb(26,26,26)] text-white' : 'bg-white text-black'}`}>
+      <Sidebar darkMode={darkMode} currentlyPlaying={currentlyPlaying} loading={loading} />
+
+      <div className="flex-1 flex flex-col p-8 overflow-hidden">
+        <div className="flex justify-between items-center mb-8 max-w-[700px]">
+          <Link href="https://jasonhoabui.vercel.app" className="text-2xl font-light text-blue-400 hover:underline">
+            jasonhoabui
+          </Link>
+          <div className="flex justify-center items-center gap-4">
+            <Link href="/resume.pdf" target="_blank" className={`text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400 ${darkMode ? 'text-white' : 'text-black'}`}>
+              resume
+            </Link>
+            <Link href="/experience" className={`text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400 ${darkMode ? 'text-white' : 'text-black'}`}>
+              experience
+            </Link>
+            <button className="ml-2 p-1 rounded-md" onClick={toggleDarkMode}>
+              {darkMode ? <Sun className="h-5 w-5 text-blue-300" /> : <Moon className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1">
+          <h1 className="text-3xl mb-6 mt-8">
+            hey, i'm <span className="text-blue-400 font-semibold">jason bui</span>!
+          </h1>
+          
+          <p className="mb-4 text-xl break-words max-w-[700px]">
+            i'm currently a junior at <a href="https://www.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">ucsb</a>, majoring in <a href="https://www.pstat.ucsb.edu/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">statistics</a>.
+          </p>
+          
+          <p className="mb-4 text-xl break-words max-w-[700px]">
+            i'm super interested in <span className="text-blue-400">machine learning</span>, <span className="text-blue-400">applied probability</span>, and <span className="text-blue-400">game theory</span>.
+          </p>
+          
+          <p className="mb-4 text-xl break-words max-w-[700px]">
+            most recently, i've been diving into <span className="text-blue-400">poker theory</span>. i love to read about poker strategy and <a href="https://blogs.cornell.edu/info2040/2021/11/03/game-theory-optimal-gto-texas-holdem-poker-theory/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">gto</a>. my favorite hand is qq.
+          </p>
+          
+          <p className="mb-4 text-xl break-words max-w-[700px]">
+            outside of work, you can catch me <a href="https://www.instagram.com/freedatboyjayson/" target="_blank" rel="noopener noreferrer" className="text-white underline decoration-blue-400 hover:text-blue-300">powerlifting</a>. at <span className="text-blue-400">160</span> lbs bw, i bench <span className="text-blue-400">230</span> lbs, squat <span className="text-blue-400">315</span> lbs, and deadlift <span className="text-blue-400">365</span> lbs.
+          </p>
+          
+          <p className="mb-4 text-xl break-words break-words max-w-[700px]">
+            i love to eat fast food, especially <span className="text-blue-400">wingstop</span>. my go-to order is an <span className="text-blue-400">all-in bundle</span> (6 hot honey tenders, 16 boneless sweet chili glaze, lemon pepper large fries).
+          </p>
+        </div>
+
+        <div className="flex gap-3 mt-4 ml-93 pr-6">
+          <a href="https://github.com/jasonhoabui" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400">
+            github
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+          <a href="https://www.linkedin.com/in/jasonhbui/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400">
+            linkedin
+          </a>
+          <a href="mailto:jasonhoabui@gmail.com" className="text-gray-400 hover:text-blue-400 transition-colors underline decoration-blue-400">
+            email
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
